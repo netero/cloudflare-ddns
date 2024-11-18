@@ -1,9 +1,9 @@
 const fs = require('fs');
+const config = require('./configService');
 
-// Create service Read Ip from ip.js
 exports.get = async () => {
     return new Promise(resolve => {
-        fs.readFile('./data/ip.json','utf8',(err, data) => {
+        fs.readFile('./data/history.json','utf8',(err, data) => {
             if(err){
                 resolve(null);
                 return;
@@ -12,14 +12,15 @@ exports.get = async () => {
         });
     });
 }
-// Create service to change Ip
-exports.set = async (ip) => {
-    const newIp = {
-        ip,
-        startTime:new Date()
-    };
+
+exports.addNew = async (ip) => {
+    let history = await exports.get() ?? [];
+    if(history.length > config.getMaxHistorySize()){
+        history.pop();
+    }
+    history.unshift(ip);
     return new Promise((resolve, reject) => {
-        fs.writeFile('./data/ip.json', JSON.stringify(newIp), 'utf8', (err) => {
+        fs.writeFile('./data/history.json', JSON.stringify(history), 'utf8', (err) => {
             if (err) {
                 reject(err)
                 return;

@@ -1,9 +1,8 @@
 const express = require('express');
-const controller = require('../controllers/ipController');
+const controller = require('../controllers/historyController');
 
 const router = express.Router();
 
 router.get('/', controller.get);
-router.put('/', controller.update);
 
 module.exports = router;

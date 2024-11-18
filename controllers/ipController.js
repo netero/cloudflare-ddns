@@ -1,5 +1,7 @@
 
-const ipService =  require('../services/ipServices');
+const ipService =  require('../services/ipService');
+const publicIpService = require('../services/publicIpService');
+const historyService = require('../services/historyService');
 
 exports.get = async (req, res) => {
     let ip = await ipService.get();
@@ -11,13 +13,18 @@ exports.get = async (req, res) => {
 }
 
 exports.update = async (req, res) => {
-    //Get saved ip
-    let newIp = "10.10.10.1";
+    let currentIp = await ipService.get();
+    let publicIp = await publicIpService.get();
+    if(currentIp?.ip == publicIp){
+        return res.status(200).json({changed : false, currentIp:currentIp?.ip});
+    }
+
+    const newIp = {
+        ip:publicIp,
+        startTime:new Date()
+    };
     await ipService.set(newIp);
-    res.status(200).json({OK:"1"})
-    //Get current public ip from cloudflare
-    //Compare them
-        //if changed 
-        // TODO: call history.post
+    await historyService.addNew(newIp);
+    res.status(200).json({changed:true, currentIp:publicIp})
 
 }

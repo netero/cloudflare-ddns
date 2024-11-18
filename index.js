@@ -1,17 +1,18 @@
+const config = require('./services/configService');
 const express = require('express');
-const ipRoutes = require('./routes/ipRoutes')
+const ipRoutes = require('./routes/ipRoutes');
+const historyRoutes = require('./routes/historyRoutes');
+const publicIpRoutes = require('./routes/publicIpRoutes');
 const app = express();
 const port = 3000;
 
-// Middleware to parse JSON
+config.validateConfigs();
+
 app.use(express.json());
 
-// Basic route
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
-
 app.use('/ip',ipRoutes);
+app.use('/public-ip',publicIpRoutes);
+app.use('/history',historyRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
