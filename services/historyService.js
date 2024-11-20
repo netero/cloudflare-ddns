@@ -15,7 +15,7 @@ exports.get = async () => {
 
 exports.addNew = async (ip) => {
     let history = await exports.get() ?? [];
-    if(history.length > config.getMaxHistorySize()){
+    if(history.length > config.maxHistorySize()){
         history.pop();
     }
     history.unshift(ip);

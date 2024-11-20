@@ -4,7 +4,7 @@ const ipRoutes = require('./routes/ipRoutes');
 const historyRoutes = require('./routes/historyRoutes');
 const publicIpRoutes = require('./routes/publicIpRoutes');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 13701;
 
 config.validateConfigs();
 

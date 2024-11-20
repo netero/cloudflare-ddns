@@ -9,4 +9,21 @@ exports.get = async ()=>{
     return publicIp;
 }
 
-//TODO: Create a service to change public ip
+exports.set = async (ip) => {
+    let updateDnsRecord = await fetch(config.setPublicIpUrl(),
+        {
+            method: 'PUT',
+            headers:{
+                'Authorization':'Bearer ' + config.token(),
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                "type": config.recordType(),
+                "name":config.recordName(),
+                "content": ip.ip
+            })   
+        }
+    )
+    let jsonBody = await updateDnsRecord.json();
+    return jsonBody;
+}

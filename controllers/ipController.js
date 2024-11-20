@@ -25,6 +25,7 @@ exports.update = async (req, res) => {
     };
     await ipService.set(newIp);
     await historyService.addNew(newIp);
-    res.status(200).json({changed:true, currentIp:publicIp})
+    let result = await publicIpService.set(newIp);
+    res.status(200).json({changed:result.success, currentIp:result.success ? publicIp : currentIp?.ip})
 
 }
