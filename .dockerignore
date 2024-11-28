@@ -1,0 +1,44 @@
+# Ignore node_modules and npm cache
+node_modules
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Logs
+logs
+*.log
+*.log.*
+
+# Build artifacts
+dist
+build
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.*
+.env.local
+
+# Docker-related files
+docker-compose.override.yml
+
+# Test coverage
+coverage
+
+# Git files
+.git
+.gitignore
+
+# Miscellaneous
+*.pid
+*.seed
+*.pid.lock
+
+data/*

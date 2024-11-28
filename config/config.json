@@ -1,0 +1,6 @@
+{
+    "maxHistorySize" : 100,
+    "getPublicIpUrl":"https://cloudflare.com/cdn-cgi/trace",
+    "setPublicIpUrl":"https://api.cloudflare.com/client/v4/zones/{zoneId}/dns_records/{recordId}",
+    "rowIpFilter":"ip="
+}
